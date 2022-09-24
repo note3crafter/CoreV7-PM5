@@ -1,4 +1,4 @@
-<h1>CoreV6 BETA<img src="https://github.com/note3crafter/Core-V5/blob/main/resources/icon.png" height="64" width="64" align="left"></img></h1>
+<h1>CoreV7 ALPHA<img src="https://github.com/note3crafter/Core-V5/blob/main/resources/icon.png" height="64" width="64" align="left"></img></h1>
 <br />
 Für Pocketmine API 5.0.0
 
