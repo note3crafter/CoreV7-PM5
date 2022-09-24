@@ -1,0 +1,8 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/note3crafter/CoreV7-PM5
+build-by-default: true
+branches:
+- main
+projects:
+  CoreV7-PM5:
+    path: ""
+...
