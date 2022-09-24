@@ -1,0 +1,22 @@
+---
+#Module einstellungen!
+#Hier kannst du einige Systeme aktivieren und deaktivieren!
+ModulesVersion: 7.0.0 #FingerWeg! Dont touch this!
+GamemodeCommands: true
+EconomySystem: true
+ClanSystem: true
+HeiratsSystem: true
+FriendSystem: true
+Essentials: true
+GruppenSystem: true
+HomeSystem: true
+WarpSystem: true
+PerkSystem: true
+TPASystem: true
+MSGSystem: true
+BanSystem: false
+StatsSystem: true
+Emotes: true
+CoinSystem: true
+LiftSystem: true
+...
