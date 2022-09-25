@@ -15,13 +15,11 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\utils\Config;
 use TheNote\core\Main;
+use TheNote\core\utils\PlayerUtils;
 
-class UserdataListener implements Listener
-{
-    private $plugin;
+class UserdataListener implements Listener {
 
-    public function __construct(Main $plugin)
-    {
+    public function __construct(private Main $plugin) {
         $this->plugin = $plugin;
     }
 
@@ -33,7 +31,7 @@ class UserdataListener implements Listener
         $pf->set("Name", $player->getName());
         $pf->set("IP", $player->getNetworkSession()->getIp());
         $pf->set("Xbox-ID", $player->getPlayerInfo()->getXuid());
-        $pf->set("OS", $this->plugin->getPlayerPlatform($player));
+        $pf->set("OS", PlayerUtils::getPlayerPlatform($player));
         $pf->set("ID", $player->getUniqueId());
         $pf->set("Last_Join", date('d.m.Y H:I') . date_default_timezone_set("Europe/Berlin"));
         $pf->save();
