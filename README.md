@@ -10,7 +10,7 @@ Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/
 
 # Neues v7.0.0 ALPHA
 - Fehler und Bugs können auftreten!
-- 
+
 # Bekannte Fehler
 - MusicSystem nicht funktional
 - AdminItems aktuell nicht funktional
