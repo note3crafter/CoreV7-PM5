@@ -449,7 +449,7 @@ class Main extends PluginBase implements Listener
             $serverstats = new Config($this->getDataFolder() . Main::$cloud . "stats.json", Config::JSON);
             $serverstats->set("aktiviert", $serverstats->get("aktivieret") + 1);
             $serverstats->save();
-            $this->getServer()->getPluginManager()->registerEvents($this, $this);
+            $this->registerEvents($this);
             $this->getServer()->getNetwork()->setName($configs->get("networkname"));
             $this->economy = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
             $this->getLogger()->info($config->get("prefix") . "§6Wird Geladen...");
@@ -736,6 +736,10 @@ class Main extends PluginBase implements Listener
             return false;
         }
         return false;
+    }
+
+    public function registerEvents(Listener $listener) {
+        return $this->getServer()->getPluginManager()->registerEvents($listener, $this);
     }
 
     private function Banner()
@@ -1753,33 +1757,6 @@ class Main extends PluginBase implements Listener
     }
 
     //Music end
-
-    public function getPlayerPlatform(Player $player): string
-    {
-        $extraData = $player->getPlayerInfo()->getExtraData();
-
-        if ($extraData["DeviceOS"] === DeviceOS::ANDROID && $extraData["DeviceModel"] === "") {
-            return "Linux";
-        }
-
-        return match ($extraData["DeviceOS"]) {
-            DeviceOS::ANDROID => "Android",
-            DeviceOS::IOS => "iOS",
-            DeviceOS::OSX => "macOS",
-            DeviceOS::AMAZON => "FireOS",
-            DeviceOS::GEAR_VR => "Gear VR",
-            DeviceOS::HOLOLENS => "Hololens",
-            DeviceOS::WINDOWS_10 => "Windows",
-            DeviceOS::WIN32 => "Windows 7 (Edu)",
-            DeviceOS::DEDICATED => "Dedicated",
-            DeviceOS::TVOS => "TV OS",
-            DeviceOS::PLAYSTATION => "PlayStation",
-            DeviceOS::NINTENDO => "Nintendo Switch",
-            DeviceOS::XBOX => "Xbox",
-            DeviceOS::WINDOWS_PHONE => "Windows Phone",
-            default => "Unknown"
-        };
-    }
 
     public static function register(bool $creative = false): bool
     {
