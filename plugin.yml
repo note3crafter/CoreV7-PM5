@@ -2,7 +2,7 @@ name: CoreV7
 main: TheNote\core\Main
 version: 7.1.0_BETA
 api:
-  - 5.0.0
+  - 5.1.0
 author: TheNote/Rudolf2000/note3crafter
 authors:
   - TheNote/Rudolf2000 #Inhaber der Core
