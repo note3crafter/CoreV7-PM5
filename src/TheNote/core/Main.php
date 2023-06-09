@@ -468,7 +468,7 @@ class Main extends PluginBase implements Listener
                 $this->getServer()->getCommandMap()->register("feed", new FeedCommand($this));
                 $this->getServer()->getCommandMap()->register("fly", new FlyCommand($this));
                 $this->getServer()->getCommandMap()->register("godmode", new GodModeCommand($this));
-                //$this->getServer()->getCommandMap()->register("id", new ItemIDCommand($this));
+                $this->getServer()->getCommandMap()->register("id", new ItemIDCommand($this));
                 $this->getServer()->getCommandMap()->register("kick", new KickCommand($this));
                 $this->getServer()->getCommandMap()->register("kickall", new KickallCommand($this));
                 $this->getServer()->getCommandMap()->register("milk", new MilkCommand($this));
