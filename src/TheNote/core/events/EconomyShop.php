@@ -75,7 +75,7 @@ class EconomyShop implements Listener
                 "z" => $block->getPosition()->getZ(),
                 "level" => $block->getPosition()->getWorld()->getFolderName(),
                 "price" => (int)$event->getNewText()->getLine(1),
-                "itemName" => $item->getVanillaName(),
+                "itemName" => StringToItemParser::getInstance()->lookupAliases($item)[0],
                 "amount" => (int)$event->getNewText()->getLine(2)
             );
             $cfg = new Config($this->plugin->getDataFolder() . Main::$cloud . "Shop.yml", Config::YAML);
@@ -131,8 +131,8 @@ class EconomyShop implements Listener
                 } else {
                     unset($this->tap[$player->getName()]);
                 }
-                $signshop = StringToItemParser::getInstance()->parse($shop['itemName'])->setCount((int)$shop['amount']);
-                $player->getInventory()->addItem($signshop);
+                $signshop = StringToItemParser::getInstance()->parse($shop['itemName']);
+                $player->getInventory()->addItem($signshop->setCount((int)$shop["amount"]));
                 $api->removeMoney($player, $shop["price"]);
                 $player->sendTip($api->getSetting("money") . "§6Du hast erfolgreich was gekauft!");
             }

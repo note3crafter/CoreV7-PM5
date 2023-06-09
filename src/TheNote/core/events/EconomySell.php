@@ -77,7 +77,7 @@ class EconomySell implements Listener
                 "z" => $block->getPosition()->getZ(),
                 "level" => $block->getPosition()->getWorld()->getFolderName(),
                 "cost" => (int)$event->getNewText()->getLine(1),
-                "itemName" => $item->getName(),
+                "itemName" => StringToItemParser::getInstance()->lookupAliases($item)[0],
                 "amount" => (int)$event->getNewText()->getLine(2)
             );
             $cfg = new Config($this->plugin->getDataFolder() . Main::$cloud . "Sell.yml", Config::YAML);
