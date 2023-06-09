@@ -679,7 +679,6 @@ class Main extends PluginBase implements Listener
             $this->getScheduler()->scheduleRepeatingTask(new ScoreboardTask($this), 60);
             if($api->getConfig("SnowMod") === true) {
                 $this->getScheduler()->scheduleRepeatingTask(new SnowModTask($this), 1);
-                var_dump("snowmod active");
             }
 
 
