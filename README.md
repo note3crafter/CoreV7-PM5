@@ -5,8 +5,9 @@ Für Pocketmine API 4.20.0
 
 Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/427472879072968714.svg?style=flat-square&label=discord&colorB=7289da)](https://discord.gg/Pebq8Wu) <br>
 # Download und Wichtig
-- [Hier downloaden](https://poggit.pmmp.io/ci/note3crafter/Core-V6/Core-V6)!
+- [Hier downloaden](https://poggit.pmmp.io/ci/note3crafter/CoreV7-PM5/CoreV7-PM5)!
 - Bitte jeden Fehler umgehend Melden!!!
+- Dieses Plugin benötigt [InvMenu](https://poggit.pmmp.io/ci/Muqsit/InvMenu/~/dev:187) PM5 
 
 # Neues v7.1.0 BETA
 - Überarbeitung diverser Systeme
