@@ -1,6 +1,6 @@
-<h1>CoreV7 ALPHA<img src="https://github.com/note3crafter/Core-V5/blob/main/resources/icon.png" height="64" width="64" align="left"></img></h1>
+<h1>CoreV6 BETA<img src="https://github.com/note3crafter/Core-V5/blob/main/resources/icon.png" height="64" width="64" align="left"></img></h1>
 <br />
-Für Pocketmine API 5.0.0
+Für Pocketmine API 4.20.0
 
 
 Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/427472879072968714.svg?style=flat-square&label=discord&colorB=7289da)](https://discord.gg/Pebq8Wu) <br>
@@ -8,15 +8,22 @@ Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/
 - [Hier downloaden](https://poggit.pmmp.io/ci/note3crafter/Core-V6/Core-V6)!
 - Bitte jeden Fehler umgehend Melden!!!
 
-# Neues v7.0.0 ALPHA
-- Fehler und Bugs können auftreten!
+# Neues v7.1.0 BETA
+- Überarbeitung diverser Systeme
+- EconomyShop/Sell System wurde geupdatet und ist weiterhin Kompatibel
+- WetterSystem Intregriert mit SnowMod
+
+# Aktuell Defekt
+- EconomyJob
+- VoteSystem
+- ChestShop
+- Vanish
+- Werkbankcommand
+- EconomyChest
+- EconomyShop/Sell unterstützt leider noch nicht alles wie farbige Wolle etc
+- Weitere Kleinigkeiten die nicht verfügbar sind!
 
 # Bekannte Fehler
-- MusicSystem nicht funktional
-- AdminItems aktuell nicht funktional
-- EconomyChest/Shop/Sell nicht funkitonal
-- StarterKit nicht funktional und alles was mit Items zu tun hat aktuell nicht nutzbar!
-- /vanish nicht funktional
 - Sprachensystem sind folgende Commands und Funktionen noch nicht übernommen
 - /ban /banid /banlist /booster /credits /erfolg /fake /friend /kit /perk /perkshop /seeperms /serverstats /stats /unban
  
@@ -26,7 +33,6 @@ Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/
 - 1GB Festplatte -
 
 # Für die Zukunft Geplant :
-- Weitere Commands wie : /top, /nofire, /speed sind geplant
 - Neuschreiben des Booster Commands
 - Neuschreiben des Ban Systems
 - API für die Core
@@ -38,10 +44,11 @@ Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/
     | 1 | sell\shop\leer |
     | 2 | Menge |
     | 3 | Preis |
-    | 4 | Item ID:meta |
+    | 4 | Item ID:meta oder Name |
+- Sehr Wichtig! Namen Korrekt eintragen!
 
 # Features
-- [Alle Commands](https://github.com/note3crafter/Core-V7/blob/main/resources/commands.md)
+- [Alle Commands](https://github.com/note3crafter/Core-V6/blob/main/resources/commands.md)
 - Multi Language Support! (Aktuell noch nicht vollständig)
 - [MCPEtoDiscord](https://github.com/JaxkDev/MCPEToDiscord) (by [JaxkDev](https://github.com/JaxkDev))
 - VoteSystem   
@@ -81,7 +88,7 @@ Und an unseren Forker! Gebt das Plugin nicht als Euers aus! Ich habe eine menge 
 - [ipad54](https://github.com/ipad54/INether) (Für Composter und Netherstuff)
 - [LookitsAku](https://github.com/Akuroma) & und vielen vielen weiteren Helfern!
 
-2017-2022 ©TheNote/RetroRolf/note3crafter
+2017-2023 ©TheNote/RetroRolf/note3crafter
 
 
 
