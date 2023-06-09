@@ -459,7 +459,7 @@ class Main extends PluginBase implements Listener
             }
             if ($modules->get("Essentials") === true) {
                 Server::getInstance()->getCommandMap()->unregister(Server::getInstance()->getCommandMap()->getCommand("kick"));
-                //$this->getServer()->getCommandMap()->register("afk", new AFKCommand($this));
+                $this->getServer()->getCommandMap()->register("afk", new AFKCommand($this));
                 $this->getServer()->getCommandMap()->register("back", new BackCommand($this));
                 $this->getServer()->getCommandMap()->register("burn", new BurnCommand($this));
                 $this->getServer()->getCommandMap()->register("clear", new ClearCommand($this));
