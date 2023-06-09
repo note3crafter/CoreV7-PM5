@@ -49,7 +49,7 @@ class AFKCommand extends Command implements Listener
             $cfg = new Config($this->plugin->getDataFolder() . Main::$userfile . $sender->getName() . ".json", Config::JSON);
             unset($this->afk[strtolower($sender->getName())]);
             $sender->sendMessage($api->getSetting("afk") . $api->getLang("afknoafk"));
-            $sender->setImmobile(false);
+            $sender->setNoClientPredictions(false);
             $cfg->set("afkmove", false);
             $cfg->set("afk", false);
             $cfg->save();
@@ -62,7 +62,7 @@ class AFKCommand extends Command implements Listener
             $cfg = new Config($this->plugin->getDataFolder() . Main::$userfile . $sender->getName() . ".json", Config::JSON);
             $this->afk[strtolower($sender->getName())] = strtolower($sender->getName());
             $sender->sendMessage($api->getSetting("afk") . $api->getLang("afknowafk"));
-            $sender->setImmobile(true);
+            $sender->setNoClientPredictions(true);
             $cfg->set("afkmove", true);
             $cfg->set("afk", true);
             $cfg->save();
@@ -98,7 +98,7 @@ class AFKCommand extends Command implements Listener
         $l = $langsettings->get("Lang");
         $lang = new Config($this->plugin->getDataFolder() . Main::$lang . "Lang_" . $l . ".json", Config::JSON);
         $cfg = new Config($this->plugin->getDataFolder() . Main::$userfile . $player->getName() . ".json", Config::JSON);
-        if($cfg->get("afkmove") == true) {
+        if($cfg->get("afkmove") === true) {
             $player->sendMessage($lang->get("afknomove"));
             $event->cancel();
         }
