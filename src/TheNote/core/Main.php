@@ -23,6 +23,7 @@ use pocketmine\data\bedrock\BiomeIds;
 use pocketmine\entity\animation\TotemUseAnimation;
 use pocketmine\entity\Entity;
 use pocketmine\event\entity\ItemSpawnEvent;
+use pocketmine\event\EventPriority;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerDeathEvent;
@@ -31,6 +32,8 @@ use pocketmine\event\player\PlayerKickEvent;
 use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\player\PlayerToggleSneakEvent;
+use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\event\server\QueryRegenerateEvent;
 use pocketmine\item\StringToItemParser;
 use pocketmine\item\VanillaItems;
@@ -38,8 +41,10 @@ use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\NetworkBroadcastUtils;
 use pocketmine\network\mcpe\protocol\AddActorPacket;
 use pocketmine\network\mcpe\protocol\PlaySoundPacket;
+use pocketmine\network\mcpe\protocol\StartGamePacket;
 use pocketmine\network\mcpe\protocol\types\DeviceOS;
 use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
+use pocketmine\network\mcpe\protocol\types\Experiments;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
@@ -48,9 +53,9 @@ use pocketmine\world\particle\BlockBreakParticle;
 use pocketmine\world\particle\DustParticle;
 use pocketmine\world\Position;
 use pocketmine\world\sound\TotemUseSound;
-
-//Command
+use TheNote\core\blocks\PowerBlock;
 use TheNote\core\command\AbenteuerCommand;
+use TheNote\core\command\AFKCommand;
 use TheNote\core\command\BackCommand;
 use TheNote\core\command\BanCommand;
 use TheNote\core\command\BanIDListCommand;
@@ -66,7 +71,6 @@ use TheNote\core\command\CreditsCommand;
 use TheNote\core\command\DayCommand;
 use TheNote\core\command\DelHomeCommand;
 use TheNote\core\command\DelWarpCommand;
-use TheNote\core\command\EconomyJobCommand;
 use TheNote\core\command\EnderChestCommand;
 use TheNote\core\command\ErfolgCommand;
 use TheNote\core\command\ExtinguishCommand;
@@ -82,6 +86,7 @@ use TheNote\core\command\HealCommand;
 use TheNote\core\command\HeiratenCommand;
 use TheNote\core\command\HomeCommand;
 use TheNote\core\command\HubCommand;
+use TheNote\core\command\ItemIDCommand;
 use TheNote\core\command\JumpCommand;
 use TheNote\core\command\KickallCommand;
 use TheNote\core\command\KickCommand;
@@ -142,8 +147,27 @@ use TheNote\core\command\VoteCommand;
 use TheNote\core\command\WarpCommand;
 use TheNote\core\command\WeatherCommand;
 use TheNote\core\command\ZuschauerCommand;
-
-//Server
+use TheNote\core\emotes\burb;
+use TheNote\core\emotes\geil;
+use TheNote\core\emotes\happy;
+use TheNote\core\emotes\sauer;
+use TheNote\core\emotes\traurig;
+use TheNote\core\events\AntiCheatEvent;
+use TheNote\core\events\ColorChat;
+use TheNote\core\events\DeathMessages;
+use TheNote\core\events\EconomySell;
+use TheNote\core\events\EconomyShop;
+use TheNote\core\events\Eventsettings;
+use TheNote\core\events\EventsListener;
+use TheNote\core\events\LightningRod;
+use TheNote\core\events\Particle;
+use TheNote\core\events\RegelEvent;
+use TheNote\core\events\SpawnProtection;
+use TheNote\core\formapi\SimpleForm;
+use TheNote\core\listener\BackListener;
+use TheNote\core\listener\CollisionsListener;
+use TheNote\core\listener\GroupListener;
+use TheNote\core\listener\UserdataListener;
 use TheNote\core\server\FFAArena;
 use TheNote\core\server\LiftSystem\BlockBreakListener;
 use TheNote\core\server\LiftSystem\BlockPlaceListener;
@@ -151,41 +175,6 @@ use TheNote\core\server\LiftSystem\PlayerJumpListener;
 use TheNote\core\server\LiftSystem\PlayerToggleSneakListener;
 use TheNote\core\server\Stats;
 use TheNote\core\server\Version;
-
-//Events
-use TheNote\core\events\AntiCheatEvent;
-use TheNote\core\events\ColorChat;
-use TheNote\core\events\DeathMessages;
-use TheNote\core\events\EconomyJob;
-use TheNote\core\events\EconomySell;
-use TheNote\core\events\EconomyShop;
-use TheNote\core\events\Eventsettings;
-use TheNote\core\events\EventsListener;
-use TheNote\core\events\Particle;
-use TheNote\core\events\RegelEvent;
-
-//listener
-use TheNote\core\listener\BackListener;
-use TheNote\core\listener\CollisionsListener;
-use TheNote\core\listener\HeiratsListener;
-use TheNote\core\listener\GroupListener;
-use TheNote\core\listener\UserdataListener;
-
-//Emotes
-use TheNote\core\emotes\burb;
-use TheNote\core\emotes\geil;
-use TheNote\core\emotes\happy;
-use TheNote\core\emotes\sauer;
-use TheNote\core\emotes\traurig;
-
-//Anderes
-use TheNote\core\blocks\PowerBlock;
-use TheNote\core\formapi\SimpleForm;
-use TheNote\core\utils\Manager;
-use TheNote\core\utils\OnlineSQLite;
-use TheNote\core\world\WorldManager;
-
-//task
 use TheNote\core\task\CallbackTask;
 use TheNote\core\task\LeaderboardTask;
 use TheNote\core\task\PingTask;
@@ -195,17 +184,37 @@ use TheNote\core\task\SnowCreateLayer;
 use TheNote\core\task\SnowDestructLayer;
 use TheNote\core\task\SnowModTask;
 use TheNote\core\task\StopTimeTask;
+use TheNote\core\utils\Manager;
+use TheNote\core\utils\OnlineSQLite;
+use TheNote\core\world\WorldManager;
+
+//CyberCraft
+
+
+//Command
+
+//Server
+
+//Events
+
+//listener
+
+//Emotes
+
+//Anderes
+
+//task
 
 class Main extends PluginBase implements Listener
 {
 
     //PluginVersion
-    public static string $version = "7.1.0 Stable";
+    public static string $version = "7.1.1 Stable";
     public static string $protokoll = "589";
     public static string $mcpeversion = "1.20.00";
-    public static string $dateversion = "09.06.2023";
+    public static string $dateversion = "12.06.2023";
     public static string $plname = "CoreV7";
-    public static string $configversion = "7.0.0";
+    public static string $configversion = "7.1.1";
     public static string $moduleversion = "6.1.3";
     public static string $defaultperm = "CoreV7";
     public bool $clearItems;
@@ -349,6 +358,7 @@ class Main extends PluginBase implements Listener
      */
     public function onEnable(): void
     {
+        $api = new BaseAPI();
         if (!InvMenuHandler::isRegistered()) {
             InvMenuHandler::register($this);
         }
@@ -359,6 +369,29 @@ class Main extends PluginBase implements Listener
 
                 }
             }
+
+            if($api->getConfig("ShortSneak") === true) {
+                $this->getServer()->getPluginManager()->registerEvent(DataPacketSendEvent::class, function (DataPacketSendEvent $event): void {
+                    foreach ($event->getPackets() as $packet) {
+                        if ($packet instanceof StartGamePacket) {
+                            $packet->levelSettings->experiments = new Experiments(array_merge($packet->levelSettings->experiments->getExperiments(), [
+                                "short_sneaking" => true
+                            ]), true);
+                        }
+                    }
+                }, EventPriority::HIGHEST, $this);
+                $this->getServer()->getPluginManager()->registerEvent(PlayerToggleSneakEvent::class, function (PlayerToggleSneakEvent $event): void {
+                    $player = $event->getPlayer();
+                    if (!$event->isSneaking()) {
+                        (new \ReflectionMethod($player, "recalculateSize"))->invoke($player);
+                    } elseif (!$player->isSwimming() && !$player->isGliding()) {
+                        (new \ReflectionProperty($player->size, "height"))->setValue($player->size, 1.5 * $player->getScale());
+                        (new \ReflectionProperty($player->size, "eyeHeight"))->setValue($player->size, 1.32 * $player->getScale());
+                    }
+                }, EventPriority::MONITOR, $this);
+            }
+
+
             $this->default = "";
             $this->reload();
             if (strlen($this->default) > 1) {
@@ -374,7 +407,6 @@ class Main extends PluginBase implements Listener
             $this->multibyte = function_exists("mb_substr") and function_exists("mb_strlen");
 
             self::$instance = $this;
-            $api = new BaseAPI();
             $modules = new Config($this->getDataFolder() . Main::$setup . "Modules.yml", Config::YAML);
 
             if ($api->getSetting("Config") == null) {
@@ -431,9 +463,8 @@ class Main extends PluginBase implements Listener
             $this->economy = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
             $this->getLogger()->info($api->getSetting("prefix") . "§6Wird Geladen...");
 
-            //Server::getInstance()->getCommandMap()->unregister(Server::getInstance()->getCommandMap()->getCommand("clear"));
+            Server::getInstance()->getCommandMap()->unregister(Server::getInstance()->getCommandMap()->getCommand("clear"));
             Server::getInstance()->getCommandMap()->unregister(Server::getInstance()->getCommandMap()->getCommand("version"));
-
 
             $this->config = new Config($this->getDataFolder() . Main::$cloud . "Count.json", Config::JSON);
             $this->getLogger()->info($api->getSetting("prefix") . "§6Plugins wurden Erfolgreich geladen!");
@@ -647,9 +678,10 @@ class Main extends PluginBase implements Listener
             $this->getServer()->getPluginManager()->registerEvents(new EventsListener(), $this);
             $this->getServer()->getPluginManager()->registerEvents(new Eventsettings($this), $this);
             //$this->getServer()->getPluginManager()->registerEvents(new BlocketRecipes($this), $this);
-            /*if ($api->getConfig("Lightningrod") === true) {
+            if ($api->getConfig("Lightningrod") === true) {
                 $this->getServer()->getPluginManager()->registerEvents(new LightningRod($this), $this);
-            }*/
+            }
+            $this->getServer()->getPluginManager()->registerEvents(new SpawnProtection($api->getConfig("Radius")), $this);
 
             //listener
             $this->getServer()->getPluginManager()->registerEvents(new CollisionsListener($this), $this);

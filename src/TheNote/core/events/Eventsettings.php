@@ -13,6 +13,7 @@ namespace TheNote\core\events;
 
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\block\LeavesDecayEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerBucketEmptyEvent;
 use pocketmine\event\player\PlayerBucketFillEvent;
@@ -30,8 +31,8 @@ class Eventsettings implements Listener
 
     public function __construct(Main $plugin)
     {
-        $this->plugin = $plugin;
-    }
+        $this->plugin = $plugin;}
+
     public function onBreak(BlockBreakEvent $event)
     {
         $player = $event->getPlayer();
@@ -46,7 +47,8 @@ class Eventsettings implements Listener
         }
     }
 
-    public function onPlace(BlockPlaceEvent $event) {
+    public function onPlace(BlockPlaceEvent $event)
+    {
         $player = $event->getPlayer();
         $cfg = new Config($this->plugin->getDataFolder() . Main::$setup . "Config.yml", Config::YAML);
         $level = $cfg->get("Place", []);
@@ -58,7 +60,9 @@ class Eventsettings implements Listener
             }
         }
     }
-    public function onChat(PlayerChatEvent $event) {
+
+    public function onChat(PlayerChatEvent $event)
+    {
         $player = $event->getPlayer();
         $cfg = new Config($this->plugin->getDataFolder() . Main::$setup . "Config.yml", Config::YAML);
         $level = $cfg->get("Chat", []);
@@ -70,7 +74,9 @@ class Eventsettings implements Listener
             }
         }
     }
-    public function onDrop(PlayerDropItemEvent $event){
+
+    public function onDrop(PlayerDropItemEvent $event)
+    {
         $player = $event->getPlayer();
         $cfg = new Config($this->plugin->getDataFolder() . Main::$setup . "Config.yml", Config::YAML);
         $level = $cfg->get("Drop", []);
@@ -82,7 +88,9 @@ class Eventsettings implements Listener
             }
         }
     }
-    public function bucketemty(PlayerBucketEmptyEvent $event) {
+
+    public function bucketemty(PlayerBucketEmptyEvent $event)
+    {
         $player = $event->getPlayer();
         $cfg = new Config($this->plugin->getDataFolder() . Main::$setup . "Config.yml", Config::YAML);
         $level = $cfg->get("Bucketempty", []);
@@ -94,7 +102,9 @@ class Eventsettings implements Listener
             }
         }
     }
-    public function bucketfill(PlayerBucketFillEvent $event) {
+
+    public function bucketfill(PlayerBucketFillEvent $event)
+    {
         $player = $event->getPlayer();
         $cfg = new Config($this->plugin->getDataFolder() . Main::$setup . "Config.yml", Config::YAML);
         $level = $cfg->get("Bucketfill", []);
@@ -104,6 +114,15 @@ class Eventsettings implements Listener
             } else {
                 $event->cancel();
             }
+        }
+    }
+
+    public function LeavesDecay(LeavesDecayEvent $event)
+    {
+        $cfg = new Config($this->plugin->getDataFolder() . Main::$setup . "Config.yml", Config::YAML);
+        $level = $cfg->get("BlockLeavesDecay", []);
+        if (in_array($event->getBlock()->getPosition()->getWorld()->getFolderName(), $level)) {
+            $event->cancel();
         }
     }
 }

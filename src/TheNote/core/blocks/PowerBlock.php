@@ -13,6 +13,8 @@ namespace TheNote\core\blocks;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\item\LegacyStringToItemParser;
+use pocketmine\item\StringToItemParser;
 use pocketmine\math\Vector3;
 use pocketmine\world\particle\AngryVillagerParticle;
 use pocketmine\world\particle\FlameParticle;
@@ -36,13 +38,19 @@ class PowerBlock implements Listener
     public function onMove(PlayerMoveEvent $event)
     {
         $api = new BaseAPI();
+        $b1 = $api->getConfig("BlockID1");
+        $b2 = $api->getConfig("BlockID2");
+        $bb1 = StringToItemParser::getInstance()->parse($b1) ?? LegacyStringToItemParser::getInstance()->parse($b1);
+        $bb2 = StringToItemParser::getInstance()->parse($b2) ?? LegacyStringToItemParser::getInstance()->parse($b2);
+
         $player = $event->getPlayer();
         $x = $player->getLocation()->getX();
         $y = $player->getLocation()->getY();
         $z = $player->getLocation()->getZ();
         $level = $player->getWorld();
         $block = $level->getBlock($player->getPosition()->getSide(0));
-        if ($block->getTypeId() == $api->getConfig("BlockID1")) {
+        if ($block->getTypeId() === $bb1->getTypeId()) {
+            var_dump("test pass");
             $direction = $player->getDirectionVector();
             $dx = $direction->getX();
             $dz = $direction->getZ();
@@ -66,7 +74,7 @@ class PowerBlock implements Listener
 
             //$player->setMotion(new Vector3($dx, $api->getConfig("BlockStaerke2"), $dz));
         }
-        if ($block->getTypeId() == $api->getConfig("BlockID2")) {
+        if ($block->getTypeId() === $bb2->getTypeId()) {
             $direction = $player->getDirectionVector();
             $dx = $direction->getX();
             $dz = $direction->getZ();

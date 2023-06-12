@@ -2,13 +2,11 @@
 
 namespace TheNote\core\task;
 
+use pmmp\thread\ThreadSafeArray;
 use pocketmine\Server;
 use pocketmine\scheduler\AsyncTask;
-use pocketmine\thread\NonThreadSafeValue;
-use pocketmine\thread\ThreadSafeClassLoader;
 use TheNote\core\utils\VoteUtils;
 use TheNote\core\Main;
-use pmmp\thread\ThreadSafeArray;
 
 class RequestThread extends AsyncTask {
 
@@ -17,15 +15,14 @@ class RequestThread extends AsyncTask {
     private $id;
     private $queries;
 
+
     public function __construct($id, $queries) {
         $this->id = $id;
-        //$this->queries = $queries;
-        $this->queries = ThreadSafeArray::fromArray($queries);
-
+        $this->queries = $queries;
     }
 
     public function onRun() :void {
-        foreach($this->queries as $query) {
+        foreach(igbinary_unserialize($this->queries) as $query) {
             if(($return = VoteUtils::getURL(str_replace("{USERNAME}", urlencode($this->id), $query->getCheckURL()))) && is_array(($return = json_decode($return, true))) && isset($return["voted"]) && is_bool($return["voted"]) && isset($return["claimed"]) && is_bool($return["claimed"])) {
                 $query->setVoted($return["voted"] ? 1 : -1);
                 $query->setClaimed($return["claimed"] ? 1 : -1);

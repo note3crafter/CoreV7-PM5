@@ -7,8 +7,8 @@ tree-cutter:
   "18:1:break": 3
   "18:2:break": 3
 miner:
-  "1:0:break": 5
-  "4:0:break": 3
+  "stone:break": 5
+  "grass:break": 3
 tree-planter:
   - 6:0:place: 5
   - 6:1:place: 5

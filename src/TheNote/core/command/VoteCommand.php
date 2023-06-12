@@ -11,6 +11,7 @@
 
 namespace TheNote\core\command;
 
+use pmmp\thread\ThreadSafeArray;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\network\NetworkInterface;
@@ -49,8 +50,8 @@ class VoteCommand extends Command
                 $requests[] = new ServerList($list["check"], $list["claim"]);
             }
         }
-        //$query = new RequestThread(strtolower($sender->getName()), array([$requests]));
-        $this->plugin->getServer()->getAsyncPool()->submitTask(new RequestThread(strtolower($sender->getName()), array([$requests])));
+        Server::getInstance()->getAsyncPool()->submitTask(new RequestThread(strtolower($sender->getName()), igbinary_serialize($requests)));
+        //Server::getInstance()->getAsyncPool()->submitTask(new RequestThread(strtolower($sender->getName()), $requests));
         return true;
     }
 }

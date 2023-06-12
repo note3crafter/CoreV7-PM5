@@ -1,8 +1,8 @@
 name: CoreV7
 main: TheNote\core\Main
-version: 7.1.0_BETA
+version: 7.1.1_BETA
 api:
-  - 5.1.0
+  - 5.0.0
 author: TheNote/Rudolf2000/note3crafter
 authors:
   - TheNote/Rudolf2000 #Inhaber der Core
@@ -18,9 +18,8 @@ authors:
   - Crasher508 #Fixxer
   - MDevPmmP #GroupSystem/EconomySystem
   - jojoe77777 #FormAPI
-  - muqsit #InvMenü
   - GamerMJay #hilfe
-description: Core v7.1.0 BETA
+description: Core v7.1.1 BETA
 extensions:
   - sqlite3
 permissions:

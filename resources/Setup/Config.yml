@@ -1,6 +1,6 @@
 ---
 #Allgemeine Einstellungen
-ConfigVersion: 7.0.0 #FingerWeg! Dont touch this!
+ConfigVersion: 7.1.1 #FingerWeg! Dont touch this!
 
 #Commands & Funktionen
 BoosterCommand: false #Muss Überarbeitet werden jedoch aktuell keine Zeit dafür...
@@ -11,11 +11,14 @@ Buchstabenraetsel: false
 #In Modules.yml sind die restlichen funktionen die man ändern kann!
 
 #Wähle das EconomySystem
-#(CoreV6/BedrockEconomy/EconomyAPI)
-Economy: "CoreV6"
+#(CoreV7/BedrockEconomy/EconomyAPI)
+Economy: "CoreV7"
 
 #LightningRod fun
 Lightningrod: true
+
+#Niedrigeres Sneacken
+ShortSneak: true
 
 #TimeStop
 #Stelle hier die Zeit ein die du dauerhaft haben möchtest!
@@ -68,6 +71,7 @@ collision: true #aktiviere/deaktiviere collision/schubsen
 keepinventory: true #setze auf true um dein Inventar zu Behalten
 PingLimit: 30000 #Setze das Maximale Pinglimit ein
 ExplodeEgg: true #Setzt auf True um Explodierende Eier ohne Damage zu erhalten!
+Radius: 32 #Setze den SpawnSchutz hier
 
 #Regelwerk
 Regeln: false #Entscheide selber ob du die Regeln nutzten willst oder nicht...
@@ -126,6 +130,9 @@ Bucketempty:
   - world
   - Lobby
 Bucketfill:
+  - world
+  - Lobby
+BlockLeavesDecay: #Stoppe das Despawnen von Blättern
   - world
   - Lobby
 

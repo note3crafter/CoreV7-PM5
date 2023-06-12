@@ -12,6 +12,7 @@
 namespace TheNote\core\command;
 
 use pocketmine\event\Listener;
+use pocketmine\item\StringToItemParser;
 use pocketmine\player\Player;
 use TheNote\core\BaseAPI;
 use TheNote\core\Main;
@@ -43,7 +44,7 @@ class ItemIDCommand extends Command implements Listener
             return false;
         }
         $item = $sender->getInventory()->getItemInHand();
-        $message = str_replace("{name}" , $item->getName() , $api->getLang("idmessage"));
+        $message = str_replace("{name}" , StringToItemParser::getInstance()->lookupAliases($item)[0] , $api->getLang("idmessage"));
         $sender->sendMessage($api->getSetting("prefix") . $message);
         return true;
     }

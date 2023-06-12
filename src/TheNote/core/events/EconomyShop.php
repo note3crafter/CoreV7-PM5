@@ -63,7 +63,7 @@ class EconomyShop implements Listener
                 $player->sendTip($api->getSetting("error") . "§cDer Preis muss in Zahlen angegeben werden");
                 return;
             }
-            if ($item === false) { //not finish
+            if ($item === null) {
                 $player->sendTip($api->getSetting("error") . "§cDas Item wird nicht Unterstützt! §e");
                 return;
             }

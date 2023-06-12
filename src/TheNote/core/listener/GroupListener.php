@@ -44,7 +44,7 @@ class GroupListener implements Listener
             $playerdata->setNested($name . ".groupprefix", $groupprefix );
             $playerdata->setNested($name . ".group", $defaultgroup);
             $perms = $playerdata->getNested("{$name}.permissions", []);
-            $perms[] = "CoreV6";
+            $perms[] = Main::$plname;
             $playerdata->setNested("{$name}.permissions", $perms);
             $playerdata->save();
         }
