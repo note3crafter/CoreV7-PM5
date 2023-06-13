@@ -318,3 +318,5 @@ permissions:
     default: op
   core.event.doors:
     default: op
+  core.events.spawn.bypass:
+    default: op  
