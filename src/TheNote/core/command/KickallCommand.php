@@ -50,7 +50,7 @@ class KickallCommand extends Command
                     } elseif ($players !== $sender) {
                         $message = str_replace("{reason}", $args[0], $api->getLang("kickallsucces"));
                         $players->kick($api->getSetting("info") . $message, false);
-                        $message1 = str_replace("{sender}", $name . $api->getLang("kickallbc"));
+                        $message1 = str_replace("{sender}", $name, $api->getLang("kickallbc"));
                         $this->plugin->getServer()->broadcastMessage($api->getSetting("info") . $message1);
                     }
                 }
