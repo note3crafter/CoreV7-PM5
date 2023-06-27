@@ -2,6 +2,9 @@
 <br />
 Für Pocketmine API 5.1.1 
 
+This Project will no Longer Supportet! Please use [ProjectCore](https://github.com/note3crafter/ProjectCore) its time to a new Ära! 
+
+
 
 Du willst helfen? Hier mein Discord! [![Discord](https://img.shields.io/discord/427472879072968714.svg?style=flat-square&label=discord&colorB=7289da)](https://discord.gg/Pebq8Wu) <br>
 # Download und Wichtig
